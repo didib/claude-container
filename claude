@@ -3,7 +3,6 @@
 set -e
 
 proj_name="$(basename "${PWD}")"
-vertex_default_project="$(jq -r '.quota_project_id' <~/.config/gcloud/application_default_credentials.json 2>/dev/null || sed -n -e 's/project = \(.*\)/\1/' -e T -e p ~/.config/gcloud/configurations/config_default)"
 
 mkdir -p ~/.claude
 if ! [ -e ~/.claude.json ]; then
@@ -30,7 +29,7 @@ fi
 exec podman run -i -t --tz=local \
     --name="claude-${proj_name}" --rm \
     --log-driver=none \
-    --env "ANTHROPIC_VERTEX_PROJECT_ID=${vertex_default_project}" \
+    --env ANTHROPIC_API_KEY="${ENMAAS_KEY}" \
     --secret claude-github-token,type=env,target=GH_TOKEN \
     --userns=keep-id \
     --security-opt 'unmask=/proc/*' \

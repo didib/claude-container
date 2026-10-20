@@ -24,5 +24,5 @@ RUN /tmp/install.sh "${VERSION}"
 
 RUN mkdir /home/claude/.config
 WORKDIR /projects
-ENV CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=global DISABLE_AUTOUPDATER=1
+ENV CLOUD_ML_REGION=global DISABLE_AUTOUPDATER=1
 ENTRYPOINT ["/home/claude/.local/bin/claude"]
